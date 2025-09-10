@@ -44,8 +44,8 @@ const printByLine = (ms) => {*/
 
 
 
-/*
-const printByLine = (ms) => {
+
+/*const printByLine = (ms) => {
     asciiHeart.forEach((line, index) => {
         setTimeout(() => {
             console.log(line)
@@ -53,17 +53,31 @@ const printByLine = (ms) => {
 
     })
 }
-printByLine(1500)
+printByLine(1500)*/
 
-*/
+
 
 
 const printByChart = (ms) => {
-    asciiHeart.forEach((character, i) => {
-        setTimeout(() => {
-            process.stdout.write(`${character}`)
-        }, i * ms)
+    let delay = 0;
 
-    })
-}
-printByChart(500)
+    asciiHeart.forEach(line => {
+        line.split('').forEach((character, i) => {
+            setTimeout(() => {
+                process.stdout.write(`${character}`)
+            }, delay + (i * ms))
+        })
+        delay += line.length * ms;
+        delay += ms; 
+        setTimeout(() => {
+            process.stdout.write('\n')
+        }, delay - ms); 
+    });
+        
+        setTimeout(() => {
+            process.stdout.write(`\n`)
+        }, delay);
+        
+        delay += ms;
+    }
+        printByChart(500);
